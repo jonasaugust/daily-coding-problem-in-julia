@@ -34,7 +34,6 @@ closer = Dict("(" => r"\)", "{" => r"\}", "[" => r"\]")
 function isgood(s::String)
   mnone = match(r"^[^(){}[\]]*$", s)
   if !isnothing(mnone)
-    #println("no brackets in \"$s\"")
     return true
   end
   mleft = match(r"[({[]", s)
@@ -53,7 +52,6 @@ function isgood(s::String)
   sleft = s[1:ileft-1]
   smid = s[ileft+1:iright-1]
   sright = s[iright+1:end]
-  #println("left=\"$sleft\" mid=\"$smid\" right=\"$sright\"")
   isgood(sleft) && isgood(smid) && isgood(sright)
 end
 
