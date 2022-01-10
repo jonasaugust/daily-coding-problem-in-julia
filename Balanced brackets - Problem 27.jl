@@ -11,6 +11,7 @@ Given the string "([)]" or "((()", you should return false.
 =#
 
 #=
+
 Observations:
 
 - Closing bracket follows matching opening bracket.
@@ -68,52 +69,3 @@ badly_formed = ["(", "}", ")(", "([)]", "((()"]
 @testset "badly formed string \"$s\"" for s in badly_formed
     @test !isgood(s)
 end
-
-#=
-# BROKEN: doesn't work for "([)]"
-function isbalanced(s::String)
-    netround = 0
-    netcurly = 0
-    netsquare = 0
-    for c in s
-        if c == '('
-	    netround += 1
-	end
-	if c == ')'
-	    # shouldn't close if others aren't closed
-	    if netcurly > 0 || netsquare > 0
-	        println(") $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netround -= 1
-	end
-	if c == '{'
-	    netcurly += 1
-	end
-	if c == '}'
-	    if netround > 0 || netsquare > 0
-       	        println("} $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netcurly -= 1
-	end
-	if c == '['
-	    netsquare += 1
-	end
-	if c == ']'
-	    if netround > 0 || netcurly > 0
-       	        println("] $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netsquare -= 1
-	end
-	if netround < 0 || netcurly < 0 || netsquare < 0
-	    println("negative $netround $netcurly $netsquare")
-	    return false
-	end
-    end
-    netround == 0 && netcurly == 0 && netsquare == 0
-end
-
-=#
-
