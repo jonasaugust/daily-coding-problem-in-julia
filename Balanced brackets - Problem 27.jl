@@ -11,6 +11,7 @@ Given the string "([)]" or "((()", you should return false.
 =#
 
 #=
+
 Observations:
 
 - Closing bracket follows matching opening bracket.
@@ -33,7 +34,6 @@ closer = Dict("(" => r"\)", "{" => r"\}", "[" => r"\]")
 function isgood(s::String)
   mnone = match(r"^[^(){}[\]]*$", s)
   if !isnothing(mnone)
-    #println("no brackets in \"$s\"")
     return true
   end
   mleft = match(r"[({[]", s)
@@ -52,7 +52,6 @@ function isgood(s::String)
   sleft = s[1:ileft-1]
   smid = s[ileft+1:iright-1]
   sright = s[iright+1:end]
-  #println("left=\"$sleft\" mid=\"$smid\" right=\"$sright\"")
   isgood(sleft) && isgood(smid) && isgood(sright)
 end
 
@@ -68,52 +67,3 @@ badly_formed = ["(", "}", ")(", "([)]", "((()"]
 @testset "badly formed string \"$s\"" for s in badly_formed
     @test !isgood(s)
 end
-
-#=
-# BROKEN: doesn't work for "([)]"
-function isbalanced(s::String)
-    netround = 0
-    netcurly = 0
-    netsquare = 0
-    for c in s
-        if c == '('
-	    netround += 1
-	end
-	if c == ')'
-	    # shouldn't close if others aren't closed
-	    if netcurly > 0 || netsquare > 0
-	        println(") $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netround -= 1
-	end
-	if c == '{'
-	    netcurly += 1
-	end
-	if c == '}'
-	    if netround > 0 || netsquare > 0
-       	        println("} $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netcurly -= 1
-	end
-	if c == '['
-	    netsquare += 1
-	end
-	if c == ']'
-	    if netround > 0 || netcurly > 0
-       	        println("] $netround $netcurly $netsquare")
-	        return false
-	    end
-	    netsquare -= 1
-	end
-	if netround < 0 || netcurly < 0 || netsquare < 0
-	    println("negative $netround $netcurly $netsquare")
-	    return false
-	end
-    end
-    netround == 0 && netcurly == 0 && netsquare == 0
-end
-
-=#
-
