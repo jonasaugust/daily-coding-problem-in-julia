@@ -58,4 +58,5 @@ using Test
 @test powerset([]) == [[]]
 @test powerset([1]) == [[], [1]]
 @test powerset([1,2]) == [[],[1],[2],[1,2]]
+# Set needed because ordering in computed powerset is different than test case.
 @test Set(powerset([1,2,3])) == Set([[],[1],[2],[3],[1,2],[1,3],[2,3],[1,2,3]])
