@@ -30,6 +30,7 @@ But maybe there's some function of the elements that can be used instead?
 
 =#
 
+#=
 "Find that integer in input array x that has no match, while all other elements come in three, in no particular order.  Takes O(n) time, O(1) space, where n = length of the array."
 function single_among_triples_BAD(x::Vector{Int})::Int
     @error("Broken")
@@ -42,6 +43,7 @@ function single_among_triples_BAD(x::Vector{Int})::Int
     end
     @error("This line should never be reached for well-formed input.")
 end
+=#
 
 #=
 
