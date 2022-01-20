@@ -48,9 +48,8 @@ function single_among_triples_fast(x::Vector{Int})::Int
     for y in x
         # TODO: CHECK that this always works
         c = (p/y)^(1/3)
-	# TODO: what tolerance ensures correct results?
+        # TODO: what tolerance ensures correct results?
         if abs(c-round(c)) < sqrt(eps(c))    # is c approximately an integer?
-            #println("p = $p, y = $y")       
             return y
         end
     end
@@ -68,7 +67,6 @@ function single_among_triples_brute_force(x::Vector{Int})::Int
 	       break
 	   end
        end
-       #println(matched)
        if !matched
            return x[i]
        end
