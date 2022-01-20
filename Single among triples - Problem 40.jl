@@ -28,25 +28,6 @@ This is necessary condition for identifying y, but is it sufficient?  No!  Consi
 
 But maybe there's some function of the elements that can be used instead?
 
-=#
-
-#=
-"Find that integer in input array x that has no match, while all other elements come in three, in no particular order.  Takes O(n) time, O(1) space, where n = length of the array."
-function single_among_triples_BAD(x::Vector{Int})::Int
-    @error("Broken")
-    s = sum(x)
-    for y in x
-        if (s-y)%3 == 0  # Is sum over x\y divisible by 3?
-            println("s = $s, y = $y")       
-            return y
-        end
-    end
-    @error("This line should never be reached for well-formed input.")
-end
-=#
-
-#=
-
 If a,b are integers, then cube root of aab is integer iff b = a?
 
 Relevance Fermat's last theorem?
@@ -67,16 +48,14 @@ function single_among_triples_fast(x::Vector{Int})::Int
     for y in x
         # TODO: CHECK that this always works
         c = (p/y)^(1/3)
-	# TODO: what tolerance always gives correct results?
-        if abs(c-round(c)) < 1e-7    # is c approximately an integer?
+	# TODO: what tolerance ensures correct results?
+        if abs(c-round(c)) < sqrt(eps(c))    # is c approximately an integer?
             #println("p = $p, y = $y")       
             return y
         end
     end
     @error("This line should never be reached for well-formed input.")
 end
-
-
 
 
 "Find that integer in input array x that has no match, while all other elements come in three, in no particular order.  Takes O(n^2) time, O(1) space, where n = length of the array."
@@ -121,7 +100,7 @@ Not O(n) time:
 
 using Test
 
-for single_among_triples in [single_among_triples_brute_force,single_among_triples_fast]
+for single_among_triples in [single_among_triples_brute_force, single_among_triples_fast]
   # @test @test single_among_triples([]) == ?  not defined? exception?
   @test single_among_triples([19]) == 19
   @test single_among_triples([13, 19, 13, 13]) == 19
